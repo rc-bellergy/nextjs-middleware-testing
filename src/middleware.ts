@@ -1,13 +1,15 @@
-import { usePathname } from "next/navigation";
 import { NextResponse } from "next/server";
+import type { NextRequest } from 'next/server';
 
-export function middleware(request: any) {
+export function middleware(request: NextRequest) {
 
     console.log("Middleware is running on ");
 
-    const loggedIn = false;
+    const jwtToken = request.cookies.get('jwt_token');
 
-    if (!loggedIn) {
+    
+
+    if (!jwtToken) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
