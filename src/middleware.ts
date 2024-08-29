@@ -3,13 +3,12 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
 
-    console.log("Middleware is running on ");
+    console.log("Middleware is running");
 
     const jwtToken = request.cookies.get('jwt_token');
 
-    
-
     if (!jwtToken) {
+        console.log("No JWT token found. Redirecting to login page.");
         return NextResponse.redirect(new URL("/login", request.url));
     }
 

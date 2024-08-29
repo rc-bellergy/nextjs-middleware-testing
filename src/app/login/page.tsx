@@ -1,17 +1,19 @@
 "use client"
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
 
 	const [username, setUsername] = useState('frontenduser');
 	const [password, setPassword] = useState('password');
 	const [error, setError] = useState('');
+	const router = useRouter();
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setError('');
-
+	
 		try {
 			const response = await fetch('/api/login', {
 				method: 'POST',
@@ -22,7 +24,8 @@ export default function Page() {
 			});
 
 			if (response.ok) {
-				// Handle successful login, e.g., redirect to dashboard
+				// Handle successful login, e.g., redirect to home
+				router.push('/');
 				console.log('Login successful');
 			} else {
 				const data = await response.json();
